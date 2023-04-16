@@ -51,6 +51,32 @@ const Avatar = styledC(BaseAvatar)`
   }
 `;
 
+const findPredictionNumbers = (team1, team2, predictions) => {
+  let n1, n2;
+
+  predictions.forEach(pString => {
+    const [predictionTeam1, predictionTeam2] = pString.split('-');
+
+    const predictionTeam1Name = predictionTeam1.slice(0, predictionTeam1.length - 1);
+    const predictionTeam2Name = predictionTeam2.slice(1, predictionTeam2.length);
+
+    const predictionTeam1Code = teams.find(team => team.chineseName === predictionTeam1Name).code;
+    const predictionTeam2Code = teams.find(team => team.chineseName === predictionTeam2Name).code;
+
+    if (team1 === predictionTeam1Code && team2 === predictionTeam2Code) {
+      n1 = predictionTeam1.slice(predictionTeam1.length - 1, predictionTeam1.length);
+      n2 = predictionTeam2.slice(0, 1);
+      return;
+    }
+    if (team1 === predictionTeam2Code && team2 === predictionTeam1Code) {
+      n2 = predictionTeam1.slice(predictionTeam1.length - 1, predictionTeam1.length);
+      n1 = predictionTeam2.slice(0, 1);
+      return;
+    }
+  });
+
+  return { n1, n2 };
+};
 export const Table = () => {
   return (
     <Grid container spacing={2}>
@@ -93,14 +119,20 @@ export const Table = () => {
                   {Contestant.name}
                 </Stack>
               </Grid>
-
-              {P.Predictions.map(pString => (
-                <Grid item md={1.3}>
-                  <TextItem>
-                    <Text>{pString}</Text>
-                  </TextItem>
-                </Grid>
-              ))}
+              {/* 太阳3-4快船 */}
+              {Vesus.map(([t1, t2]) => {
+                const { n1, n2 } = findPredictionNumbers(t1, t2, P.predictions);
+                return (
+                  <Grid item md={1.3}>
+                    <TextItem>
+                      <Text>
+                        <span style={n1 > n2 ? { backgroundColor: 'lightgreen' } : {}}>{n1}</span> :{' '}
+                        <span style={n1 < n2 ? { backgroundColor: 'lightgreen' } : {}}>{n2}</span>
+                      </Text>
+                    </TextItem>
+                  </Grid>
+                );
+              })}
             </Grid>
           );
         })}
