@@ -1,12 +1,12 @@
 export const Vesus = [
-  ['MIL', 'MIA'],
-  ['CLE', 'NYK'],
-  ['PHI', 'BKN'],
-  ['BOS', 'ATL'],
-  ['DEN', 'MIN'],
-  ['PHX', 'LAC'],
-  ['SAC', 'GSW'],
-  ['MEM', 'LAL'],
+  ['MIL', 'MIA', '1', '4'],
+  ['CLE', 'NYK', '1', '4'],
+  ['PHI', 'BKN', '4', '0'],
+  ['BOS', 'ATL', '4', '2'],
+  ['DEN', 'MIN', '4', '1'],
+  ['PHX', 'LAC', '4', '1'],
+  ['SAC', 'GSW', '3', '4'],
+  ['MEM', 'LAL', '2', '4'],
 ];
 
 export const Predictions = [
